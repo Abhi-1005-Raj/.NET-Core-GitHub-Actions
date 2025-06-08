@@ -21,7 +21,19 @@ var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
-app.MapGet("/", () => "Hello World!");
+
+
+
+app.MapGet("/", () => Results.Json(new
+{
+    message = "Welcome to the Weather API!",
+    availableEndpoints = new[]
+    {
+        new { path = "/weatherforecast", description = "Returns a random weather forecast." },
+        new { path = "/swagger", description = "Swagger UI to explore and test the API endpoints." }
+    }
+}));
+
 app.MapGet("/weatherforecast", () =>
     {
         var forecast = Enumerable.Range(1, 5).Select(index =>
